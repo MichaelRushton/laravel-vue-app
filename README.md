@@ -1,11 +1,11 @@
-# Laravel Vue CRM
+# Laravel Vue App
 
-A CRM built in Laravel and Vue.
+A web app built in Laravel and Vue.
 
 ## Installation
 
 ```bash
-composer create-project michaelrushton/laravel-vue-crm . -s dev --no-install --ignore-platform-reqs
+composer create-project michaelrushton/laravel-vue-app . -s dev --no-install --ignore-platform-reqs
 bin/app install
 ```
 

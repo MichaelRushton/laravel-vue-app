@@ -51,7 +51,7 @@ install()
     exec npm i
     exec npm run build
 
-    until [ "`docker inspect -f {{.State.Health.Status}} laravel-vue-crm-db`" == "healthy" ]; do
+    until [ "`docker inspect -f {{.State.Health.Status}} laravel-vue-app-db`" == "healthy" ]; do
         sleep 1;
     done;
 
@@ -95,7 +95,7 @@ format()
 exec()
 {
     command=$@
-    docker exec -it laravel-vue-crm-app sh -c "$command"
+    docker exec -it laravel-vue-app-app sh -c "$command"
 }
 
 case "$1" in

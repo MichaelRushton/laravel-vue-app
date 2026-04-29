@@ -1,6 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
-    "name": "@michaelrushton/laravel-vue-crm",
+    "name": "@michaelrushton/laravel-vue-app",
     "private": true,
     "type": "module",
     "scripts": {
