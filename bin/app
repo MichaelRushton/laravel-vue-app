@@ -46,7 +46,7 @@ install()
     export gid=$(id -g)
     docker compose -f docker/compose.yaml --env-file .env --profile install up -d
 
-    exec composer install
+    exec composer i
     exec php artisan key:generate
     exec npm i
     exec npm run build
