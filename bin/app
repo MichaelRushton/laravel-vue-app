@@ -83,7 +83,7 @@ stop()
 dev()
 {
     exec php artisan optimize:clear
-    NODE_ENV=development npm run dev
+    exec NODE_ENV=development npm run dev
 }
 
 format()
