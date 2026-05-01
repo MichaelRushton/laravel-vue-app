@@ -15,10 +15,6 @@ class DeleteUserImpersonations extends Command
 
     public function handle()
     {
-
-        $days = config('data-cleanse.user_impersonations', 365);
-
-        UserImpersonation::where('created_at', '<', $this->option('before') ?: today()->subDays($days))->delete();
-
+        UserImpersonation::where('created_at', '<', $this->option('before'))->delete();
     }
 }

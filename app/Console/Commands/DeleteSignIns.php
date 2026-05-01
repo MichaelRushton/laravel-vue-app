@@ -15,10 +15,6 @@ class DeleteSignIns extends Command
 
     public function handle()
     {
-
-        $days = config('data-cleanse.sign_ins', 365);
-
-        SignIn::where('created_at', '<', $this->option('before') ?: today()->subDays($days))->delete();
-
+        SignIn::where('created_at', '<', $this->option('before'))->delete();
     }
 }

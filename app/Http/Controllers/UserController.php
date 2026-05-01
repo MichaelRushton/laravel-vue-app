@@ -114,12 +114,12 @@ class UserController extends Controller
         Gate::authorize('impersonate', $user);
 
         if (! $impersonated_by = session('impersonated_by')) {
-            session(['impersonated_by' => $impersonated_by = $request->user()]);
-        } elseif ($user->is($impersonated_by)) {
+            session(['impersonated_by' => $impersonated_by = $request->user()->id]);
+        } elseif ($user->id === $impersonated_by) {
             return $this->unimpersonate();
         }
 
-        event(new UserImpersonated($user, $impersonated_by));
+        event(new UserImpersonated($user, User::findOrFail($impersonated_by)));
 
         Auth::login($user);
 
@@ -136,7 +136,7 @@ class UserController extends Controller
             abort(400);
         }
 
-        Auth::login($impersonated_by);
+        Auth::loginUsingId($impersonated_by);
 
         session()->forget('impersonated_by');
 

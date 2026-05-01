@@ -41,7 +41,7 @@ test('impersonate user', function () {
     $this->actingAs($admin = User::factory()->administrator()->create())
         ->post(route('users.impersonate', $user = User::factory()->create()))
         ->assertRedirectToRoute('dashboard.show')
-        ->assertSessionHas('impersonated_by', $admin);
+        ->assertSessionHas('impersonated_by', $admin->id);
 
     $this->assertAuthenticatedAs($user);
 
@@ -70,8 +70,10 @@ test('logs user impersonation', function () {
 
 test('remember original user when chaining impersonations', function () {
 
+    $admin = User::factory()->administrator()->create();
+
     $this->actingAs(User::factory()->administrator()->create())
-        ->withSession(['impersonated_by' => $admin = User::factory()->administrator()->create()])
+        ->withSession(['impersonated_by' => $admin->id])
         ->post(route('users.impersonate', $user = User::factory()->create()));
 
     $user_impersonation = UserImpersonation::latest('id')->first();

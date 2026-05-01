@@ -5,7 +5,7 @@ A web app built in Laravel and Vue.
 ## Installation
 
 ```bash
-composer create-project michaelrushton/laravel-vue-app . -s dev --no-install --ignore-platform-reqs
+git clone git@github.com:MichaelRushton/laravel-vue-app.git laravel-vue-app
 bin/app install
 ```
 

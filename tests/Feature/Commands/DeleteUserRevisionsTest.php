@@ -5,26 +5,11 @@ declare(strict_types=1);
 use App\Models\User;
 use App\Models\UserRevision;
 
-test('deletes user revisions older than 30 days', function () {
-
-    User::factory(5)->create();
-
-    $this->travel(config('data-cleanse.user_revisions', 365) + 1)->days();
-
-    User::factory(10)->create();
-
-    $this->artisan('users:delete-revisions');
-
-    expect(UserRevision::count())
-        ->toBe(10);
-
-});
-
 test('delete user revisions before date', function () {
 
     User::factory(5)->create();
 
-    $this->travel($days = config('data-cleanse.user_revisions', 365) + 11)->days();
+    $this->travel($days = 365 + 11)->days();
 
     User::factory(10)->create();
 

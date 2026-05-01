@@ -21,8 +21,10 @@ test('must be impersonating a user to unimpersonate', function () {
 
 test('unimpersonate user', function () {
 
+    $admin = User::factory()->administrator()->create();
+
     $this->actingAs(User::factory()->create())
-        ->withSession(['impersonated_by' => $admin = User::factory()->administrator()->create()])
+        ->withSession(['impersonated_by' => $admin->id])
         ->delete(route('users.unimpersonate'))
         ->assertRedirectToRoute('dashboard.show')
         ->assertSessionMissing('impersonated_by');
@@ -33,8 +35,10 @@ test('unimpersonate user', function () {
 
 test('unimpersonate user by impersonating self', function () {
 
+    $admin = User::factory()->administrator()->create();
+
     $this->actingAs(User::factory()->administrator()->create())
-        ->withSession(['impersonated_by' => $admin = User::factory()->administrator()->create()])
+        ->withSession(['impersonated_by' => $admin->id])
         ->post(route('users.impersonate', $admin))
         ->assertRedirectToRoute('dashboard.show')
         ->assertSessionMissing('impersonated_by');

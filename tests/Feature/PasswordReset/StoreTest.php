@@ -90,7 +90,7 @@ test("won't create new password reset until previous expired", function () {
     expect(PasswordReset::count())
         ->toBe(1);
 
-    $this->travel(16)->minutes();
+    $this->travel(61)->minutes();
 
     $this->post(route('reset-password.store', [
         'email' => $user->email,

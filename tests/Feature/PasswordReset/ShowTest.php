@@ -24,7 +24,7 @@ test('must not be expired', function () {
 
     $password_reset = PasswordReset::factory()->create();
 
-    $this->travel(16)->minutes();
+    $this->travel(61)->minutes();
 
     $this->get(route('reset-password.show', [
         $password_reset,
