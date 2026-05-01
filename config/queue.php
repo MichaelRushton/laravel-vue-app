@@ -86,6 +86,7 @@ return [
         'failover' => [
             'driver' => 'failover',
             'connections' => [
+                'redis',
                 'database',
                 'deferred',
             ],
