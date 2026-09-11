@@ -14,49 +14,43 @@ class SecureHeaders
     {
         $response = $next($request);
 
-        $this->setContentSecurityPolicyHeader($response);
+        //$this->setContentSecurityPolicyHeader($response);
         $this->setPermissionsPolicyHeader($response);
         $this->setReferrerPolicyHeader($response);
         $this->setStrictTransportSecurityHeader($response);
         $this->setXContentTypeOptionsHeader($response);
         $this->setXFrameOptionsHeader($response);
-        $this->setXXSSProtectionHeader($response);
 
         return $response;
     }
 
     protected function setContentSecurityPolicyHeader(Response $response): void
     {
-        // $response->headers->set('Content-Security-Policy', config('headers.content-security-policy'));
+        $response->headers->set('Content-Security-Policy', "default-src 'self'");
     }
 
     protected function setPermissionsPolicyHeader(Response $response): void
     {
-        $response->headers->set('Permissions-Policy', config('headers.permissions-policy'));
+        $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
     }
 
     protected function setReferrerPolicyHeader(Response $response): void
     {
-        $response->headers->set('Referrer-Policy', config('headers.referrer-policy'));
+        $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
     }
 
     protected function setStrictTransportSecurityHeader(Response $response): void
     {
-        $response->headers->set('Strict-Transport-Security', config('headers.strict-transport-security'));
+        $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
     }
 
     protected function setXContentTypeOptionsHeader(Response $response): void
     {
-        $response->headers->set('X-Content-Type-Options', config('headers.x-content-type-options'));
+        $response->headers->set('X-Content-Type-Options', 'nosniff');
     }
 
     protected function setXFrameOptionsHeader(Response $response): void
     {
-        $response->headers->set('X-Frame-Options', config('headers.x-frame-options'));
-    }
-
-    protected function setXXSSProtectionHeader(Response $response): void
-    {
-        $response->headers->set('X-XSS-Protection', config('headers.x-xss-protection'));
+        $response->headers->set('X-Frame-Options', 'DENY');
     }
 }
