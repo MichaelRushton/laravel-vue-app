@@ -27,36 +27,36 @@ class SecureHeaders
 
     protected function setContentSecurityPolicyHeader(Response $response): void
     {
-        // $response->headers->set('Content-Security-Policy', "default-src 'self'");
+        // $response->headers->set('Content-Security-Policy', config('headers.content-security-policy'));
     }
 
     protected function setPermissionsPolicyHeader(Response $response): void
     {
-        $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+        $response->headers->set('Permissions-Policy', config('headers.permissions-policy'));
     }
 
     protected function setReferrerPolicyHeader(Response $response): void
     {
-        $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
+        $response->headers->set('Referrer-Policy', config('headers.referrer-policy'));
     }
 
     protected function setStrictTransportSecurityHeader(Response $response): void
     {
-        $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+        $response->headers->set('Strict-Transport-Security', config('headers.strict-transport-security'));
     }
 
     protected function setXContentTypeOptionsHeader(Response $response): void
     {
-        $response->headers->set('X-Content-Type-Options', 'nosniff');
+        $response->headers->set('X-Content-Type-Options', config('headers.x-content-type-options'));
     }
 
     protected function setXFrameOptionsHeader(Response $response): void
     {
-        $response->headers->set('X-Frame-Options', 'DENY');
+        $response->headers->set('X-Frame-Options', config('headers.x-frame-options'));
     }
 
     protected function setXXSSProtectionHeader(Response $response): void
     {
-        $response->headers->set('X-XSS-Protection', '1; mode=block');
+        $response->headers->set('X-XSS-Protection', config('headers.x-xss-protection'));
     }
 }
