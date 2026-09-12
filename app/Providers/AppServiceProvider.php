@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,14 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
 
         View::share('csp_nonce', Vite::useCspNonce());
+
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response) {
+            if ($response->statusCode() >= 400) {
+                return $response->render('Error', [
+                    'status' => $response->statusCode(),
+                ]);
+            }
+        });
 
     }
 }
