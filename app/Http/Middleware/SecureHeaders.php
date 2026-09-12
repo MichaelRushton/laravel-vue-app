@@ -28,6 +28,10 @@ class SecureHeaders
     protected function setContentSecurityPolicyHeader(Response $response): void
     {
 
+        if (app()->environment('local') && file_exists(base_path('/public/hot'))) {
+            return;
+        }
+
         $nonce = Vite::cspNonce();
 
         $response->headers->set('Content-Security-Policy', implode('; ', [
