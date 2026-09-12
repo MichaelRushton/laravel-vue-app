@@ -6,6 +6,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Vite;
 use Symfony\Component\HttpFoundation\Response;
 
 class SecureHeaders
@@ -14,7 +15,7 @@ class SecureHeaders
     {
         $response = $next($request);
 
-        //$this->setContentSecurityPolicyHeader($response);
+        $this->setContentSecurityPolicyHeader($response);
         $this->setPermissionsPolicyHeader($response);
         $this->setReferrerPolicyHeader($response);
         $this->setStrictTransportSecurityHeader($response);
@@ -26,7 +27,14 @@ class SecureHeaders
 
     protected function setContentSecurityPolicyHeader(Response $response): void
     {
-        $response->headers->set('Content-Security-Policy', "default-src 'self'");
+
+        $nonce = Vite::cspNonce();
+
+        $response->headers->set('Content-Security-Policy', implode('; ', [
+            "default-src 'self'",
+            "style-src 'self' 'nonce-$nonce'",
+        ]));
+
     }
 
     protected function setPermissionsPolicyHeader(Response $response): void

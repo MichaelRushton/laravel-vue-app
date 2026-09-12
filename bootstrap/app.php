@@ -15,8 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->web(append: [
+        $middleware->append([
             SecureHeaders::class,
+        ]);
+        $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
     })
