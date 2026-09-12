@@ -29,7 +29,7 @@ class SecureHeaders
     {
 
         // @codeCoverageIgnoreStart
-        if (app()->environment('local') && file_exists(base_path('/public/hot'))) {
+        if (app()->environment('local') && file_exists(base_path('public/hot'))) {
             return;
         }
         // @codeCoverageIgnoreEnd
