@@ -28,9 +28,11 @@ class SecureHeaders
     protected function setContentSecurityPolicyHeader(Response $response): void
     {
 
+        // @codeCoverageIgnoreStart
         if (app()->environment('local') && file_exists(base_path('/public/hot'))) {
             return;
         }
+        // @codeCoverageIgnoreEnd
 
         $nonce = Vite::cspNonce();
 
