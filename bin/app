@@ -5,18 +5,25 @@ set -e
 help()
 {
     echo $'\e[33mAvailable commands:\e[0m'
-    echo $'\e[32mhelp\e[0m                List available commands'
-    echo $'\e[32minstall\e[0m             Install the app'
-    echo $'\e[32mstart\e[0m               Start the Docker containers'
-    echo $'\e[32mstop\e[0m                Stop the Docker containers'
-    echo $'\e[32mdev\e[0m                 Start the Docker containers, clear the cache, and watch for changes'
-    echo $'\e[32mformat\e[0m              Run Prettier and Laravel Pint'
-    echo $'\e[32mnpm [command]\e[0m       Run an npm command'
-    echo $'\e[32mphp [command]\e[0m       Run a php command'
-    echo $'\e[32mcomposer [command]\e[0m  Run a composer command'
-    echo $'\e[32mvendor [executable]\e[0m Run a vendor/bin executable'
-    echo $'\e[32martisan [command]\e[0m   Run an artisan command'
-    echo $'\e[32m[command]\e[0m           Run an artisan command (shorthand)'
+    echo $'\e[32mhelp\e[0m                  List available commands'
+    echo $'\e[32minstall\e[0m               Install the app'
+    echo $'\e[32mstart\e[0m                 Start the containers'
+    echo $'\e[32mstop\e[0m                  Stop the containers'
+    echo $'\e[32mdev\e[0m                   Start the containers, clear the cache, and watch for changes'
+    echo $'\e[32mformat\e[0m                Run Prettier and Laravel Pint'
+    echo $'\e[32mapp <command>\e[0m         Run a command in the app container'
+    echo $'\e[32mserver <command>\e[0m      Run a command in the server container'
+    echo $'\e[32mdb <command>\e[0m          Run a command in the db container'
+    echo $'\e[32mdb-testing <command>\e[0m  Run a command in the db-testing container'
+    echo $'\e[32mmailpit <command>\e[0m     Run a command in the mailpit container'
+    echo $'\e[32mredis <command>\e[0m       Run a command in the redis container'
+    echo $'\e[32mhorizon <command>\e[0m     Run a command in the horizon container'
+    echo $'\e[32mnpm <command>\e[0m         Run an npm command in the app container'
+    echo $'\e[32mphp <command>\e[0m         Run a php command in the app container'
+    echo $'\e[32mcomposer <command>\e[0m    Run a composer command in the app container'
+    echo $'\e[32mvendor <executable>\e[0m   Run a vendor/bin executable in the app container'
+    echo $'\e[32martisan <command>\e[0m     Run an artisan command in the app container'
+    echo $'\e[32m<command>\e[0m             Run an artisan command in the app container (shorthand)'
 }
 
 install()
@@ -46,21 +53,21 @@ install()
     export gid=$(id -g)
     docker compose -f docker/compose.yaml --env-file .env --profile install up --build -d
 
-    app_exec composer i
-    app_exec php artisan key:generate
-    app_exec npm i
-    app_exec npm run build
+    container app composer i
+    container app php artisan key:generate
+    container app npm i
+    container app npm run build
 
     until [ "`docker inspect -f {{.State.Health.Status}} laravel-vue-app-db`" == "healthy" ]; do
         sleep 1;
     done;
 
-    app_exec php artisan migrate:fresh
+    container app php artisan migrate:fresh
 
     read -p $'Would you like to seed the database? y/N' -n 1 -r
 
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        app_exec php artisan db:seed
+        container app php artisan db:seed
     fi
 
     start
@@ -83,20 +90,21 @@ stop()
 dev()
 {
     start
-    app_exec php artisan optimize:clear
-    app_exec NODE_ENV=development npm run dev
+    container app php artisan optimize:clear
+    container app NODE_ENV=development npm run dev
 }
 
 format()
 {
-    app_exec npm run prettier
-    app_exec php vendor/bin/pint
+    container app npm run prettier
+    container app php vendor/bin/pint
 }
 
-app_exec()
+container()
 {
-    command=$@
-    docker exec -it laravel-vue-app-app sh -c "$command"
+    service=$1
+    command=${@:2}
+    docker exec -it laravel-vue-app-$service sh -c "$command"
 }
 
 case "$1" in
@@ -118,19 +126,22 @@ case "$1" in
     format)
         format
         ;;
-    php | composer | npm)
-        app_exec ${@:1}
+    app | server | db | db-testing | mailpit | redis | horizon)
+        container $1 ${@:2}
         ;;
+    php | composer | npm)
+        container app ${@:1}
+        ;;  
     vendor)
-        app_exec vendor/bin/${@:2}
+        container app vendor/bin/${@:2}
         ;;
     test)
-        app_exec XDEBUG_MODE=coverage php artisan ${@:1}
+        container app XDEBUG_MODE=coverage php artisan ${@:1}
         ;;
     artisan)
-        app_exec php ${@:1}
+        container app php ${@:1}
         ;;
     *)
-        app_exec php artisan ${@:1}
+        container app php artisan ${@:1}
         ;;
 esac
