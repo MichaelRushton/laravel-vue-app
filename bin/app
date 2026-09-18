@@ -126,21 +126,21 @@ case "$1" in
         format
         ;;
     app | server | db | db-testing | mailpit | redis | horizon)
-        container ${@:1}
+        container $@
         ;;
     php | composer | npm)
-        container app ${@:1}
+        container app $@
         ;;  
     vendor)
         container app vendor/bin/${@:2}
         ;;
     test)
-        container app XDEBUG_MODE=coverage php artisan ${@:1}
+        container app XDEBUG_MODE=coverage php artisan $@
         ;;
     artisan)
-        container app php ${@:1}
+        container app php $@
         ;;
     *)
-        container app php artisan ${@:1}
+        container app php artisan $@
         ;;
 esac
