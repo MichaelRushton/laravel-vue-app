@@ -102,9 +102,8 @@ format()
 
 container()
 {
-    service=$1
     command=${@:2}
-    docker exec -it laravel-vue-app-$service sh -c "$command"
+    docker exec -it laravel-vue-app-$1 sh -c "$command"
 }
 
 case "$1" in
@@ -127,7 +126,7 @@ case "$1" in
         format
         ;;
     app | server | db | db-testing | mailpit | redis | horizon)
-        container $1 ${@:2}
+        container ${@:1}
         ;;
     php | composer | npm)
         container app ${@:1}
