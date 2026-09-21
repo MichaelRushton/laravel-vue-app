@@ -22,16 +22,23 @@ Password:
 ## Commands
 
 ```bash
-bin/app help                # List available commands
-bin/app install             # Install the app
-bin/app start               # Start the Docker containers
-bin/app stop                # Stop the Docker containers
-bin/app dev                 # Start the Docker containers, clear the cache, and watch for changes
-bin/app format              # Run Prettier and Laravel Pint
-bin/app npm [command]       # Run an npm command
-bin/app php [command]       # Run a php command
-bin/app composer [command]  # Run a composer command
-bin/app vendor [executable] # Run a vendor/bin executable
-bin/app artisan [command]   # Run an artisan command
-bin/app [command]           # Run an artisan command (shorthand)
+bin/app help                  # List available commands
+bin/app install               # Install the app
+bin/app start                 # Start the containers
+bin/app stop                  # Stop the containers
+bin/app dev                   # Start the containers, clear the cache, and watch for changes
+bin/app format                # Run Prettier and Laravel Pint
+bin/app app <command>         # Run a command in the app container
+bin/app server <command>      # Run a command in the server container
+bin/app db <command>          # Run a command in the db container
+bin/app db-testing <command>  # Run a command in the db-testing container
+bin/app mailpit <command>     # Run a command in the mailpit container
+bin/app redis <command>       # Run a command in the redis container
+bin/app horizon <command>     # Run a command in the horizon container
+bin/app npm <command>         # Run an npm command in the app container
+bin/app php <command>         # Run a php command in the app container
+bin/app composer <command>    # Run a composer command in the app container
+bin/app vendor <executable>   # Run a vendor/bin executable in the app container
+bin/app artisan <command>     # Run an artisan command in the app container
+bin/app <command>             # Run an artisan command in the app container (shorthand)
 ```
