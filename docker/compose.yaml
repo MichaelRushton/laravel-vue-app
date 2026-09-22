@@ -21,6 +21,9 @@ services:
     server:
         image: nginx:alpine-slim
         container_name: ${COMPOSE_PROJECT_NAME}-server
+        depends_on:
+            app:
+                condition: service_started
         ports:
             - ${APP_PORT:-80}:80
         volumes:
