@@ -48,6 +48,7 @@ install()
     fi
 
     cp .env.example .env
+    source .env
 
     export uid=$(id -u)
     export gid=$(id -g)
@@ -58,7 +59,7 @@ install()
     container app npm i
     container app npm run build
 
-    until [ "`docker inspect -f {{.State.Health.Status}} laravel-vue-app-db`" == "healthy" ]; do
+    until [ "`docker inspect -f {{.State.Health.Status}} $COMPOSE_PROJECT_NAME-db`" == "healthy" ]; do
         sleep 1;
     done;
 
@@ -102,8 +103,9 @@ format()
 
 container()
 {
+    source .env
     command=${@:2}
-    docker exec -it laravel-vue-app-$1 sh -c "$command"
+    docker exec -it $COMPOSE_PROJECT_NAME-$1 sh -c "$command"
 }
 
 case "$1" in

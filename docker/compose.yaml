@@ -5,7 +5,7 @@ services:
             args:
                 uid: ${uid:-1000}
                 gid: ${gid:-1000}
-        image: michaelrushton/${COMPOSE_PROJECT_NAME}/app
+        image: ${COMPOSE_PROJECT_NAME}/app
         container_name: ${COMPOSE_PROJECT_NAME}-app
         user: ${uid:-1000}:${gid:-1000}
         depends_on:
@@ -90,7 +90,7 @@ services:
             args:
                 uid: ${uid:-1000}
                 gid: ${gid:-1000}
-        image: michaelrushton/${COMPOSE_PROJECT_NAME}/horizon
+        image: ${COMPOSE_PROJECT_NAME}/horizon
         container_name: ${COMPOSE_PROJECT_NAME}-horizon
         depends_on:
             redis:
