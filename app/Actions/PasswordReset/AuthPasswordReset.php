@@ -12,15 +12,17 @@ class AuthPasswordReset
     public function handle(
         PasswordReset $password_reset,
         string $token
-    ): void {
+    ): int {
 
         if (! Hash::check($token, $password_reset->token)) {
-            abort(403);
+            return 403;
         }
 
         if ($password_reset->expires_at < now()) {
-            abort(419);
+            return 419;
         }
+
+        return 200;
 
     }
 }
