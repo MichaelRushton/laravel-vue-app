@@ -6,9 +6,9 @@ namespace App\Events\Users;
 
 use App\Models\User;
 
-class UserSaved
+readonly class UserSaved
 {
     public function __construct(
-        public readonly User $user
+        public User $user
     ) {}
 }
