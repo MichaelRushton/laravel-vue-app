@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
-class AuthDestroyController extends Controller
+class AuthDestroyController
 {
     public function __invoke(): RedirectResponse
     {

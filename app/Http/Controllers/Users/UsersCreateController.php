@@ -6,12 +6,11 @@ namespace App\Http\Controllers\Users;
 
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
-class UsersCreateController extends Controller
+class UsersCreateController
 {
     public function __invoke(): Response
     {

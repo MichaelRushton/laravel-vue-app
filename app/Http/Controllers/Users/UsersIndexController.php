@@ -6,14 +6,13 @@ namespace App\Http\Controllers\Users;
 
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UsersIndexResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
-class UsersIndexController extends Controller
+class UsersIndexController
 {
     public function __invoke(Request $request): Response
     {

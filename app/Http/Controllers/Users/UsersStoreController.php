@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Users;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\UsersStoreRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 
-class UsersStoreController extends Controller
+class UsersStoreController
 {
     public function __invoke(UsersStoreRequest $request): RedirectResponse
     {

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\ResetPassword;
 
 use App\Actions\PasswordReset\AuthPasswordReset;
-use App\Http\Controllers\Controller;
 use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use Inertia\Response as InertiaResponse;
 
-class ResetPasswordEditController extends Controller
+class ResetPasswordEditController
 {
     public function __invoke(
         Request $request,

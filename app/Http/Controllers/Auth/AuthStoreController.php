@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthStoreRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
-class AuthStoreController extends Controller
+class AuthStoreController
 {
     public function __invoke(AuthStoreRequest $request): RedirectResponse
     {

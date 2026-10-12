@@ -6,11 +6,10 @@ namespace App\Http\Controllers\ResetPassword;
 
 use App\Actions\PasswordReset\AuthPasswordReset;
 use App\Actions\PasswordReset\ResetPassword;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordReset\PasswordResetUpdateRequest;
 use App\Models\PasswordReset;
 
-class ResetPasswordUpdateController extends Controller
+class ResetPasswordUpdateController
 {
     public function __invoke(
         PasswordResetUpdateRequest $request,

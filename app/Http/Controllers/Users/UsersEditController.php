@@ -6,13 +6,12 @@ namespace App\Http\Controllers\Users;
 
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UsersEditResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
-class UsersEditController extends Controller
+class UsersEditController
 {
     public function __invoke(User $user): Response
     {

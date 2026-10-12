@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\ResetPassword;
 
 use App\Actions\PasswordReset\SendPasswordResetNotification;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordReset\PasswordResetStoreRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Timebox;
 
-class ResetPasswordStoreController extends Controller
+class ResetPasswordStoreController
 {
     public function __invoke(
         PasswordResetStoreRequest $request,

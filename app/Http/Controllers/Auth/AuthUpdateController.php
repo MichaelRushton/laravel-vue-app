@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
-class AuthUpdateController extends Controller
+class AuthUpdateController
 {
     public function __invoke(AuthUpdateRequest $request): RedirectResponse
     {
