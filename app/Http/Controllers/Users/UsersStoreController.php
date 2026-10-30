@@ -13,7 +13,7 @@ class UsersStoreController
     public function __invoke(UsersStoreRequest $request): RedirectResponse
     {
 
-        User::create($request->validated());
+        new User($request->validated())->saveOrFail();
 
         return to_route('users.index')->withFlash([
             'success' => 'The user has been created.',

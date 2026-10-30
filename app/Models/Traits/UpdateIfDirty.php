@@ -17,7 +17,7 @@ trait UpdateIfDirty
 
         $this->fill($attributes);
 
-        return $this->isDirty() ? $this->save($options) : false;
+        return $this->isDirty() ? $this->saveOrFail($options) : false;
 
     }
 }
