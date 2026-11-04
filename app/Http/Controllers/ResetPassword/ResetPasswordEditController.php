@@ -17,9 +17,7 @@ class ResetPasswordEditController
         AuthPasswordReset $auth
     ): InertiaResponse {
 
-        if (200 !== $response_code = $auth->handle($password_reset, $request->token)) {
-            abort($response_code);
-        }
+        $auth->handle($password_reset, $request->token);
 
         return inertia('PasswordReset/Edit', [
             'uuid' => $password_reset->id,

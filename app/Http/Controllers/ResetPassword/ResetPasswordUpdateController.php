@@ -18,9 +18,7 @@ class ResetPasswordUpdateController
         ResetPassword $reset_password
     ) {
 
-        if (200 !== $response_code = $auth->handle($password_reset, $request->token)) {
-            abort($response_code);
-        }
+        $auth->handle($password_reset, $request->token);
 
         $reset_password->handle($password_reset, $request->validated('password'));
 
