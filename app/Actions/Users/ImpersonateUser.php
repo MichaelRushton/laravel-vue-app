@@ -20,22 +20,24 @@ class ImpersonateUser
     ): void {
 
         if ($user->id === $impersonated_by = session('impersonated_by')) {
+
             $this->unimpersonate->handle();
-        } else {
 
-            if (! $impersonated_by) {
-                session(['impersonated_by' => $admin->id]);
-            } else {
-                $admin = User::findOrFail($impersonated_by);
-            }
-
-            $this->save_impersonation->handle($user, $admin);
-
-            Auth::login($user);
-
-            session()->regenerate();
+            return;
 
         }
+
+        if (! $impersonated_by) {
+            session(['impersonated_by' => $admin->id]);
+        } else {
+            $admin = User::findOrFail($impersonated_by);
+        }
+
+        $this->save_impersonation->handle($user, $admin);
+
+        Auth::login($user);
+
+        session()->regenerate();
 
     }
 }
