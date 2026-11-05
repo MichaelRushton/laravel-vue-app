@@ -15,8 +15,8 @@ class PasswordResetNotification extends Notification implements ShouldQueue
     use Queueable;
 
     public function __construct(
-        public readonly PasswordReset $password_reset,
-        public readonly string $token
+        public protected(set) PasswordReset $password_reset,
+        public protected(set) string $token
     ) {}
 
     public function via(object $notifiable): array

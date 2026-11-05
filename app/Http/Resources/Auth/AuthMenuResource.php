@@ -9,10 +9,10 @@ use App\Enums\UserRole;
 use App\Models\User;
 use JsonSerializable;
 
-readonly class AuthMenuResource implements JsonSerializable
+class AuthMenuResource implements JsonSerializable
 {
     public function __construct(
-        public User $user
+        public protected(set) User $user
     ) {}
 
     public function items(): array

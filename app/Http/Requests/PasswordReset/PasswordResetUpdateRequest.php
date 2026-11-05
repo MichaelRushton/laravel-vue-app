@@ -4,11 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\PasswordReset;
 
+use App\Actions\PasswordReset\AuthPasswordReset;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
 class PasswordResetUpdateRequest extends FormRequest
 {
+    public function authorize(AuthPasswordReset $auth): bool
+    {
+
+        $auth->handle($this->route('password_reset'), $this->token);
+
+        return true;
+
+    }
+
     public function rules(): array
     {
         return [
