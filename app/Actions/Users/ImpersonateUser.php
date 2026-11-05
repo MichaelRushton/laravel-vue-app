@@ -17,25 +17,25 @@ class ImpersonateUser
     public function handle(
         User $user,
         User $admin
-    ): bool {
+    ): void {
 
         if ($user->id === $impersonated_by = session('impersonated_by')) {
-            return $this->unimpersonate->handle();
-        }
-
-        if (! $impersonated_by) {
-            session(['impersonated_by' => $admin->id]);
+            $this->unimpersonate->handle();
         } else {
-            $admin = User::findOrFail($impersonated_by);
+
+            if (! $impersonated_by) {
+                session(['impersonated_by' => $admin->id]);
+            } else {
+                $admin = User::findOrFail($impersonated_by);
+            }
+
+            $this->save_impersonation->handle($user, $admin);
+
+            Auth::login($user);
+
+            session()->regenerate();
+
         }
-
-        $this->save_impersonation->handle($user, $admin);
-
-        Auth::login($user);
-
-        session()->regenerate();
-
-        return true;
 
     }
 }

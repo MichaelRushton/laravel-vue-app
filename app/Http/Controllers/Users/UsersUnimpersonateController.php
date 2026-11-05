@@ -12,9 +12,7 @@ class UsersUnimpersonateController
     public function __invoke(UnimpersonateUser $unimpersonate): RedirectResponse
     {
 
-        if (! $unimpersonate->handle()) {
-            abort(400);
-        }
+        $unimpersonate->handle();
 
         return to_route('dashboard.show');
 

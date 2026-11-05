@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UnimpersonateUser
 {
-    public function handle(): bool
+    public function handle(): void
     {
 
         if (! $impersonated_by = session('impersonated_by')) {
-            return false;
+            abort(400);
         }
 
         Auth::loginUsingId($impersonated_by);
@@ -20,8 +20,6 @@ class UnimpersonateUser
         session()->forget('impersonated_by');
 
         session()->regenerate();
-
-        return true;
 
     }
 }
