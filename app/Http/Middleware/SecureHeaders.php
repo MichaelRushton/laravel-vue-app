@@ -28,16 +28,21 @@ class SecureHeaders
     protected function setContentSecurityPolicyHeader(Response $response): void
     {
 
+        $nonce = Vite::cspNonce();
+
         // @codeCoverageIgnoreStart
         if (app()->environment('local') && file_exists(base_path('public/hot'))) {
+
+            $response->headers->set('Content-Security-Policy', "default-src * 'nonce-$nonce'");
+
             return;
+
         }
         // @codeCoverageIgnoreEnd
 
-        $nonce = Vite::cspNonce();
-
         $response->headers->set('Content-Security-Policy', implode('; ', [
             "default-src 'self'",
+            "script-src 'self' 'nonce-$nonce'",
             "style-src 'self' 'nonce-$nonce'",
         ]));
 
