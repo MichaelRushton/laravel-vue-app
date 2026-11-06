@@ -21,7 +21,7 @@ class AuthStoreController
 
         session()->regenerate();
 
-        return to_route('dashboard.show');
+        return redirect()->intended(route('dashboard.show'));
 
     }
 }

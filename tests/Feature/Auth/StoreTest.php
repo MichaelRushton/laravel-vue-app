@@ -152,3 +152,17 @@ test('records successful sign in', function () {
         ->toBeTrue();
 
 });
+
+test('sign in to intended', function () {
+
+    $user = User::factory()->create();
+
+    $this->get(route('users.index'));
+
+    $this->post(route('auth.store', [
+        'email' => $user->email,
+        'password' => 'password1234',
+    ]))
+        ->assertRedirectToRoute('users.index');
+
+});
