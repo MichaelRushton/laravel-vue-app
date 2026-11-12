@@ -56,6 +56,7 @@ install()
 
     container app composer i
     container app php artisan key:generate
+    container app php artisan passport:keys
     container app npm i
     container app npm run build
 
