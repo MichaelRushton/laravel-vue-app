@@ -28,8 +28,10 @@ class UserPolicy
         return $user->isAdministrator();
     }
 
-    public function impersonate(User $user, User $model): bool
-    {
+    public function impersonate(
+        User $user,
+        User $model
+    ): bool {
         return $user->isAdministrator() && ! $user->is($model);
     }
 }
